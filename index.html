@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EditbyAI - Jasa Edit Foto Keren Pakai AI</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Swiper JS for Slider -->
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    
+    <!-- GSAP & ScrollTrigger for Animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        /* Custom Styles */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0A0A0A;
+            color: #E5E5E5;
+            overflow-x: hidden; /* Prevent horizontal scroll from animations */
+        }
+
+        /* Hamburger Menu Animation */
+        .hamburger .line { transition: all 0.3s ease-in-out; }
+        .hamburger.open .line1 { transform: rotate(45deg) translate(5px, 5px); }
+        .hamburger.open .line2 { opacity: 0; }
+        .hamburger.open .line3 { transform: rotate(-45deg) translate(7px, -6px); }
+
+        /* Sticky Header Style on Scroll */
+        .header-scrolled {
+            background-color: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom-width: 1px;
+            border-color: #27272a;
+        }
+        
+        /* Swiper Slider Customization */
+        .swiper-button-next, .swiper-button-prev {
+            color: #ffffff;
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 9999px;
+            width: 44px;
+            height: 44px;
+        }
+        .swiper-button-next:after, .swiper-button-prev:after { font-size: 20px; }
+        .swiper-pagination-bullet { background: rgba(255, 255, 255, 0.5); }
+        .swiper-pagination-bullet-active { background: #ffffff; }
+
+        /* Initial animation state */
+        .gsap-reveal { opacity: 0; visibility: hidden; }
+        
+        .portfolio-swiper .swiper-slide {
+            transition: transform 0.3s ease;
+        }
+        .portfolio-swiper .swiper-slide-active {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- ===== 1. Navigation Header ===== -->
+    <header id="header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" class="text-2xl font-bold tracking-wider">EditbyAI</a>
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="#use-cases" class="hover:text-gray-300 transition-colors">Kegunaan</a>
+                <a href="#pricing" class="hover:text-gray-300 transition-colors">Harga</a>
+                <a href="#portfolio" class="hover:text-gray-300 transition-colors">Portfolio</a>
+                <a href="#faq" class="hover:text-gray-300 transition-colors">FAQ</a>
+            </div>
+            <button id="hamburger-button" class="md:hidden hamburger focus:outline-none" aria-label="Buka menu">
+                <div class="space-y-2">
+                    <span class="line line1 block w-8 h-0.5 bg-white"></span>
+                    <span class="line line2 block w-8 h-0.5 bg-white"></span>
+                    <span class="line line3 block w-8 h-0.5 bg-white"></span>
+                </div>
+            </button>
+        </nav>
+        <div id="mobile-menu" class="hidden md:hidden bg-black/80 backdrop-blur-lg">
+            <a href="#use-cases" class="block py-4 px-6 text-center hover:bg-gray-800">Kegunaan</a>
+            <a href="#pricing" class="block py-4 px-6 text-center hover:bg-gray-800">Harga</a>
+            <a href="#portfolio" class="block py-4 px-6 text-center hover:bg-gray-800">Portfolio</a>
+            <a href="#faq" class="block py-4 px-6 text-center hover:bg-gray-800">FAQ</a>
+        </div>
+    </header>
+
+    <main>
+        <!-- ===== 2. Hero Section ===== -->
+        <section id="hero" class="min-h-screen flex items-center justify-center pt-20">
+            <div class="container mx-auto px-6 text-center">
+                <div class="max-w-3xl mx-auto">
+                    <h1 class="text-4xl md:text-6xl lg:text-7xl font-extrabold tracking-tight leading-tight mb-4 gsap-reveal">Bosen Sama Fotomu yang Gitu-Gitu Aja?</h1>
+                    <p class="text-lg md:text-xl text-gray-300 mb-8 max-w-2xl mx-auto gsap-reveal">Pengen ganti background, ganti baju, atau coba konsep seru tapi mager? Serahin aja ke sini! Kamu tinggal kirim foto + idemu, hasilnya auto-keren.</p>
+                    <div class="gsap-reveal">
+                        <a href="https://wa.me/6281234567890?text=Halo%20EditbyAI,%20saya%20tertarik%20dengan%20jasa%20edit%20foto%20AI." target="_blank" class="bg-white text-black font-semibold py-3 px-8 rounded-lg text-lg hover:bg-gray-200 transition-transform transform hover:scale-105 inline-block">Pesan Lewat WA</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== 3. Use Cases Section ===== -->
+        <section id="use-cases" class="py-20 md:py-32 bg-[#111111]">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-bold gsap-reveal">Cocok Buat Apa Aja?</h2>
+                    <p class="text-gray-400 mt-2 gsap-reveal">Apapun kebutuhanmu, kami siap bikin fotomu jadi lebih hidup.</p>
+                </div>
+                <div class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+                    <div class="bg-[#0A0A0A] border border-zinc-800 p-8 rounded-lg text-center use-case-card gsap-reveal"><svg class="w-12 h-12 mx-auto mb-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg><h3 class="text-xl font-semibold mb-2">Foto Profil Profesional</h3><p class="text-gray-400">Ubah foto selfie jadi foto formal untuk CV, LinkedIn, atau kartu nama.</p></div>
+                    <div class="bg-[#0A0A0A] border border-zinc-800 p-8 rounded-lg text-center use-case-card gsap-reveal"><svg class="w-12 h-12 mx-auto mb-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg><h3 class="text-xl font-semibold mb-2">Foto Bareng Kesayangan</h3><p class="text-gray-400">Satukan fotomu dengan idola, pasangan, atau keluarga dalam satu frame keren.</p></div>
+                    <div class="bg-[#0A0A0A] border border-zinc-800 p-8 rounded-lg text-center use-case-card gsap-reveal"><svg class="w-12 h-12 mx-auto mb-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg><h3 class="text-xl font-semibold mb-2">Konsep Momen Spesial</h3><p class="text-gray-400">Rayakan wisuda, ulang tahun, atau hari spesial lainnya dengan foto konsep unik.</p></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== 4. Pricing Section ===== -->
+        <section id="pricing" class="py-20 md:py-32">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12"><h2 class="text-3xl md:text-4xl font-bold gsap-reveal">Harga Jujur, Hasil Maksimal</h2><p class="text-gray-400 mt-2 gsap-reveal">Satu harga untuk satu foto keren. Gak pake ribet.</p></div>
+                <div class="max-w-md mx-auto pricing-card gsap-reveal"><div class="bg-[#111111] border border-zinc-800 rounded-xl shadow-lg p-8 transform hover:scale-105 hover:border-zinc-700 transition-all duration-300"><div class="text-center mb-6"><h3 class="text-2xl font-semibold mb-2">Paket Auto-Keren</h3><p class="text-5xl font-extrabold">Rp25k</p><p class="text-gray-400">per foto / konsep</p></div><ul class="space-y-4 mb-8"><li class="flex items-center"><svg class="w-5 h-5 text-white mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Ganti Background & Tema</li><li class="flex items-center"><svg class="w-5 h-5 text-white mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Ganti Pakaian (Formal/Kasual)</li><li class="flex items-center"><svg class="w-5 h-5 text-white mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Konsep Unik Sesuai Idemu</li><li class="flex items-center"><svg class="w-5 h-5 text-white mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Hasil Resolusi Tinggi (Full HD)</li><li class="flex items-center"><svg class="w-5 h-5 text-white mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Tanpa Watermark</li></ul><a href="https://wa.me/6281234567890?text=Halo%20EditbyAI,%20saya%20mau%20pesan%20jasa%20edit%20foto%20konsep%20AI." target="_blank" class="block w-full text-center bg-white text-black font-semibold py-3 px-8 rounded-lg hover:bg-gray-200 transition-colors">Pesan Sekarang</a></div></div>
+            </div>
+        </section>
+
+        <!-- ===== 5. Portfolio/Results Slider (UPDATED) ===== -->
+        <section id="portfolio" class="py-20 md:py-32 bg-[#111111] overflow-hidden">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-bold gsap-reveal">Galeri Hasil Edit</h2>
+                    <p class="text-gray-400 mt-2 gsap-reveal">Lihat sendiri kualitas hasil editan kami. Dari foto biasa jadi luar biasa.</p>
+                </div>
+                <div class="swiper portfolio-swiper gsap-reveal">
+                    <div class="swiper-wrapper">
+                        <!-- Slide 1 -->
+                        <div class="swiper-slide group">
+                            <div class="relative rounded-lg overflow-hidden border border-zinc-800 aspect-[3/4]">
+                                <img data-src="/assets/img_1.png" class="swiper-lazy w-full h-full object-cover" alt="Contoh hasil edit foto profil CV">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
+                                <div class="swiper-lazy-preloader swiper-lazy-preloader-white"></div>
+                            </div>
+                        </div>
+                        <!-- Slide 2 -->
+                        <div class="swiper-slide group">
+                             <div class="relative rounded-lg overflow-hidden border border-zinc-800 aspect-[3/4]">
+                                <img data-src="/assets/img_2.png" class="swiper-lazy w-full h-full object-cover" alt="Contoh hasil edit tema fantasi">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
+                                <div class="swiper-lazy-preloader swiper-lazy-preloader-white"></div>
+                            </div>
+                        </div>
+                        <!-- Slide 3 -->
+                        <div class="swiper-slide group">
+                             <div class="relative rounded-lg overflow-hidden border border-zinc-800 aspect-[3/4]">
+                                <img data-src="/assets/img_3.png" class="swiper-lazy w-full h-full object-cover" alt="Contoh hasil edit konsep wisuda">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
+                                <div class="swiper-lazy-preloader swiper-lazy-preloader-white"></div>
+                            </div>
+                        </div>
+                        <!-- Slide 4 -->
+                        <div class="swiper-slide group">
+                             <div class="relative rounded-lg overflow-hidden border border-zinc-800 aspect-[3/4]">
+                                <img data-src="/assets/img_4.png" class="swiper-lazy w-full h-full object-cover" alt="Contoh hasil edit bareng idola">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
+                                
+                                <div class="swiper-lazy-preloader swiper-lazy-preloader-white"></div>
+                            </div>
+                        </div>
+                         <!-- Slide 5 -->
+                        <div class="swiper-slide group">
+                             <div class="relative rounded-lg overflow-hidden border border-zinc-800 aspect-[3/4]">
+                                <img data-src="/assets/img_5.png" class="swiper-lazy w-full h-full object-cover" alt="Contoh hasil edit ganti baju">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
+                                <div class="swiper-lazy-preloader swiper-lazy-preloader-white"></div>
+                            </div>
+                        </div>
+                         <!-- Slide 6 -->
+                        <div class="swiper-slide group">
+                             <div class="relative rounded-lg overflow-hidden border border-zinc-800 aspect-[3/4]">
+                                <img data-src="/assets/img_6.png" class="swiper-lazy w-full h-full object-cover" alt="Contoh hasil edit ganti baju">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
+                                <div class="swiper-lazy-preloader swiper-lazy-preloader-white"></div>
+                            </div>
+                        </div>
+                         <!-- Slide 7 -->
+                        <div class="swiper-slide group">
+                             <div class="relative rounded-lg overflow-hidden border border-zinc-800 aspect-[3/4]">
+                                <img data-src="/assets/img_7.png" class="swiper-lazy w-full h-full object-cover" alt="Contoh hasil edit ganti baju">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
+                                <div class="swiper-lazy-preloader swiper-lazy-preloader-white"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-pagination mt-8 relative"></div>
+                </div>
+                 <div class="relative mt-8 flex justify-center items-center">
+                    <div class="swiper-button-prev"></div>
+                    <div class="swiper-button-next"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== 6. Testimonials Section ===== -->
+        <section id="testimonials" class="py-20 md:py-32">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12"><h2 class="text-3xl md:text-4xl font-bold gsap-reveal">Apa Kata Mereka</h2><p class="text-gray-400 mt-2 gsap-reveal">Cerita dari mereka yang fotonya udah jadi makin keren.</p></div>
+                <div class="swiper testimonial-swiper gsap-reveal"><div class="swiper-wrapper"><div class="swiper-slide testimonial-card"><div class="bg-[#111111] border border-zinc-800 rounded-lg p-8 text-center h-full flex flex-col justify-center"><img src="https://placehold.co/80x80/ffffff/000000?text=AD" alt="Andi D." class="w-20 h-20 rounded-full mx-auto mb-4"><p class="text-gray-300 italic mb-4">"Butuh foto CV yang proper tapi gak sempet ke studio. Kirim foto selfie, hasilnya jadi profesional banget. Mantap!"</p><footer class="mt-auto"><cite class="font-semibold not-italic">Andi D.</cite><p class="text-sm text-gray-500">Fresh Graduate</p></footer></div></div><div class="swiper-slide testimonial-card"><div class="bg-[#111111] border border-zinc-800 rounded-lg p-8 text-center h-full flex flex-col justify-center"><img src="https://placehold.co/80x80/eeeeee/111111?text=RT" alt="Rina T." class="w-20 h-20 rounded-full mx-auto mb-4"><p class="text-gray-300 italic mb-4">"Pengen punya foto bareng pacar dengan tema fantasi. Kirim ide, hasilnya di luar ekspektasi! Keren parah."</p><footer class="mt-auto"><cite class="font-semibold not-italic">Rina T.</cite><p class="text-sm text-gray-500">Content Creator</p></footer></div></div><div class="swiper-slide testimonial-card"><div class="bg-[#111111] border border-zinc-800 rounded-lg p-8 text-center h-full flex flex-col justify-center"><img src="https://placehold.co/80x80/dddddd/222222?text=BP" alt="Budi P." class="w-20 h-20 rounded-full mx-auto mb-4"><p class="text-gray-300 italic mb-4">"Gak ada foto wisuda yang bagus. Minta dieditin pakai toga dan background wisuda, hasilnya jadi oke banget buat dipajang."</p><footer class="mt-auto"><cite class="font-semibold not-italic">Budi P.</cite><p class="text-sm text-gray-500">Mahasiswa</p></footer></div></div></div><div class="testimonial-swiper-pagination swiper-pagination mt-8 relative"></div></div>
+            </div>
+        </section>
+        
+        <!-- ===== 7. FAQ Section ===== -->
+        <section id="faq" class="py-20 md:py-32 bg-[#111111]">
+            <div class="container mx-auto px-6 max-w-3xl">
+                <div class="text-center mb-12"><h2 class="text-3xl md:text-4xl font-bold gsap-reveal">Yang Sering Ditanyain</h2><p class="text-gray-400 mt-2 gsap-reveal">Masih bingung? Coba cek di sini dulu.</p></div>
+                <div class="space-y-4"><div class="bg-[#0A0A0A] border border-zinc-800 p-6 rounded-lg faq-item gsap-reveal"><h3 class="font-semibold text-lg mb-2">Gimana cara pesannya?</h3><p class="text-gray-400">Gampang banget! Klik tombol "Pesan Lewat WA", nanti kamu akan langsung diarahkan ke WhatsApp kami. Kirim foto dan jelaskan ide/konsep yang kamu mau. Sisanya, biar kami yang urus!</p></div><div class="bg-[#0A0A0A] border border-zinc-800 p-6 rounded-lg faq-item gsap-reveal"><h3 class="font-semibold text-lg mb-2">Berapa lama prosesnya?</h3><p class="text-gray-400">Kami usahakan secepatnya! Biasanya hasil editan akan kamu terima dalam waktu maksimal 1x24 jam setelah pembayaran dikonfirmasi.</p></div><div class="bg-[#0A0A0A] border border-zinc-800 p-6 rounded-lg faq-item gsap-reveal"><h3 class="font-semibold text-lg mb-2">Apakah hasilnya bisa 100% mirip dengan wajah asli?</h3><p class="text-gray-400">Wajah hasil editan AI tidak bisa 100% sama persis, namun kami selalu mengusahakan agar hasilnya semirip dan seproporsional mungkin. Tujuannya agar fotomu tetap terlihat natural dan pastinya, cakep!</p></div></div>
+            </div>
+        </section>
+    </main>
+    
+    <!-- ===== Footer ===== -->
+    <footer class="border-t border-zinc-800 py-8">
+        <div class="container mx-auto px-6 text-center text-gray-500">
+            <p>&copy; 2025 EditbyAI. All Rights Reserved.</p>
+            <div class="flex justify-center items-center space-x-6 text-gray-400 mt-4"><a href="#" aria-label="Instagram" class="hover:text-white transition-colors"><svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.85s-.012 3.584-.07 4.85c-.148 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07s-3.584-.012-4.85-.07c-3.252-.148-4.771-1.691-4.919-4.919-.058-1.265-.069-1.645-.069-4.85s.012-3.584.07-4.85c.148-3.225 1.664 4.771 4.919 4.919 1.266-.058 1.644-.07 4.85-.07zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948s.014 3.667.072 4.947c.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072s3.667-.014 4.947-.072c4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.947s-.014-3.667-.072-4.947c-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.689-.073-4.948-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.162 6.162 6.162 6.162-2.759 6.162-6.162-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4s1.791-4 4-4 4 1.79 4 4-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44 1.441-.645 1.441-1.44-.645-1.44-1.441-1.44z"/></svg></a><a href="#" aria-label="X/Twitter" class="hover:text-white transition-colors"><svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a></div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // --- Navigation Header Logic ---
+            const header = document.getElementById('header');
+            const hamburgerButton = document.getElementById('hamburger-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            window.addEventListener('scroll', () => { header.classList.toggle('header-scrolled', window.scrollY > 50); });
+            hamburgerButton.addEventListener('click', () => { hamburgerButton.classList.toggle('open'); mobileMenu.classList.toggle('hidden'); });
+            document.querySelectorAll('#mobile-menu a, #header a[href^="#"]').forEach(link => {
+                link.addEventListener('click', () => { hamburgerButton.classList.remove('open'); mobileMenu.classList.add('hidden'); });
+            });
+
+            // --- Swiper Sliders Initialization ---
+            new Swiper('.portfolio-swiper', {
+                loop: true,
+                lazy: true,
+                centeredSlides: true,
+                grabCursor: true,
+                spaceBetween: 20,
+                pagination: { el: '.swiper-pagination', clickable: true },
+                navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+                keyboard: { enabled: true },
+                breakpoints: {
+                    640: { slidesPerView: 2, spaceBetween: 20 },
+                    1024: { slidesPerView: 3, spaceBetween: 30 }
+                }
+            });
+
+            new Swiper('.testimonial-swiper', { loop: true, autoplay: { delay: 5000, disableOnInteraction: false }, slidesPerView: 1, spaceBetween: 30, pagination: { el: '.testimonial-swiper-pagination', clickable: true }, breakpoints: { 768: { slidesPerView: 2 }, 1024: { slidesPerView: 3 } } });
+
+            // --- GSAP Scroll-Triggered Animations ---
+            gsap.registerPlugin(ScrollTrigger);
+            document.querySelectorAll(".gsap-reveal").forEach(el => {
+                gsap.fromTo(el, { autoAlpha: 0, y: 50 }, { duration: 1, autoAlpha: 1, y: 0, ease: "power3.out", scrollTrigger: { trigger: el, start: "top 85%", toggleActions: "play none none none" } });
+            });
+            gsap.from(".use-case-card", { duration: 0.8, autoAlpha: 0, y: 40, ease: "power3.out", stagger: 0.2, scrollTrigger: { trigger: ".use-case-card", start: "top 90%" } });
+            gsap.from(".faq-item", { duration: 0.8, autoAlpha: 0, y: 40, ease: "power3.out", stagger: 0.2, scrollTrigger: { trigger: ".faq-item", start: "top 90%" } });
+        });
+    </script>
+</body>
+</html>
